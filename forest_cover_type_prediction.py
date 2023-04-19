@@ -6,8 +6,16 @@ from sklearn.metrics import classification_report, accuracy_score
 
 # データの読み込み
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/covtype/covtype.data.gz"
-col_names = [f"feature_{i}" for i in range(54)] + ["label"]
-data = pd.read_csv(url, header=None, names=col_names, delimiter=",")
+column_names = [
+    "Elevation", "Aspect", "Slope",
+    "Horizontal_Distance_To_Hydrology", "Vertical_Distance_To_Hydrology",
+    "Horizontal_Distance_To_Roadways",
+    "Hillshade_9am", "Hillshade_Noon", "Hillshade_3pm",
+    "Horizontal_Distance_To_Fire_Points",
+] + [f"Wilderness_Area_{i}" for i in range(1, 5)] \
+  + [f"Soil_Type_{i}" for i in range(1, 41)] + ["label"]
+
+data = pd.read_csv(url, header=None, names=column_names, delimiter=",")
 
 # 特徴量とラベルに分割
 X = data.drop("label", axis=1)
